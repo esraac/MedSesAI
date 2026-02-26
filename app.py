@@ -5,33 +5,54 @@ import os
 import json
 import joblib
 import uuid 
+import speech_recognition as sr
 
 app = Flask(__name__)
 print("VoiceEncoder yükleniyor...")
 encoder = VoiceEncoder()
 print("VoiceEncoder hazır.")
 
+print("SpeechRecognition ayarlanıyor...")
+recognizer = sr.Recognizer()
+print("SpeechRecognition hazır.")
+
 @app.route('/api/voice/encode', methods=['POST'])
 def encode_voice():
-    if 'file' not in request.files:
-        return jsonify({'error': 'Ses dosyası yok'}), 400
+    files = request.files.getlist('files')
     
-    file = request.files['file']
-    # UZANTI DÜZELTİLDİ: .wav yapıldı
-    filename = f"temp_encode_{uuid.uuid4()}.wav" 
+    if not files or len(files) == 0:
+        if 'file' in request.files:
+            files = [request.files['file']]
+        else:
+            return jsonify({'error': 'Ses dosyası yok'}), 400
+    
+    embeddings = []
+    temp_files = []
     
     try:
-        file.save(filename)
-        wav = preprocess_wav(filename)
-        embedding = encoder.embed_utterance(wav)
-        return jsonify({'voice_vector': embedding.tolist()})
+        for file in files:
+            filename = f"temp_encode_{uuid.uuid4()}.wav"
+            temp_files.append(filename)
+            file.save(filename)
+            
+            wav = preprocess_wav(filename)
+            embedding = encoder.embed_utterance(wav)
+            embeddings.append(embedding)
+            
+        if len(embeddings) > 1:
+            final_embedding = np.mean(embeddings, axis=0)
+        else:
+            final_embedding = embeddings[0]
+            
+        return jsonify({'voice_vector': final_embedding.tolist()})
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
         
     finally:
-        if os.path.exists(filename):
-            os.remove(filename)
+        for filename in temp_files:
+            if os.path.exists(filename):
+                os.remove(filename)
 
 @app.route('/api/voice/verify', methods=['POST'])
 def verify_voice():
@@ -40,7 +61,7 @@ def verify_voice():
         
     file = request.files['file']
     saved_vector_str = request.form.get('saved_vector')
-    
+    challenge_code = request.form.get('challenge_code') 
     if not saved_vector_str:
         return jsonify({'error': 'Kayıtlı vektör gelmedi'}), 400
 
@@ -50,15 +71,56 @@ def verify_voice():
         saved_embedding = np.array(json.loads(saved_vector_str))
         
         file.save(filename)
+        
         wav = preprocess_wav(filename)
         new_embedding = encoder.embed_utterance(wav)
         
         similarity = np.inner(new_embedding, saved_embedding)
-        is_match = bool(similarity > 0.75) # Daha güvenli boolean dönüşümü
+        is_speaker_match = bool(similarity > 0.75) 
         
+        stt_match = False
+        recognized_text = ""
+        
+        if challenge_code:
+            try:
+                with sr.AudioFile(filename) as source:
+                    audio_data = recognizer.record(source)
+                    recognized_text = recognizer.recognize_google(audio_data, language="tr-TR")
+                   
+                    text_lower = recognized_text.lower()
+                    number_map = {
+                        "sıfır": "0", "bir": "1", "iki": "2", "üç": "3", "üc": "3",
+                        "dört": "4", "dort": "4", "beş": "5", "bes": "5", 
+                        "altı": "6", "alti": "6", "yedi": "7", "sekiz": "8", "dokuz": "9"
+                    }
+                    extracted_digits = ""
+                    for char in recognized_text:
+                        if char.isdigit():
+                            extracted_digits += char
+                            
+                    if not extracted_digits:
+                        words = text_lower.replace(",", " ").replace(".", " ").split()
+                        for word in words:
+                            if word in number_map:
+                                extracted_digits += number_map[word]
+                   
+                    if challenge_code in extracted_digits or challenge_code in text_lower.replace(" ", ""):
+                        stt_match = True
+                    if extracted_digits == challenge_code:
+                        stt_match = True
+                        
+            except sr.UnknownValueError:
+                recognized_text = "Sesi metne çeviremedi (anlaşılamadı)"
+            except sr.RequestError as e:
+                recognized_text = f"STT Servis Hatası: {e}"
+        else:
+            stt_match = True 
+
         return jsonify({
-            'match': is_match,
-            'confidence': float(similarity) # ANAHTAR İSMİ DEĞİŞTİ (Java logları için)
+            'match': is_speaker_match,         
+            'stt_match': stt_match,            
+            'recognized_text': recognized_text, 
+            'confidence': float(similarity) 
         })
         
     except Exception as e:
