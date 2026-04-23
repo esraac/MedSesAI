@@ -130,6 +130,35 @@ def verify_voice():
         if os.path.exists(filename):
             os.remove(filename)
 
+@app.route('/api/voice/stt', methods=['POST'])
+def recognize_stt():
+    if 'file' not in request.files:
+        return jsonify({'error': 'Ses dosyası eksik'}), 400
+        
+    file = request.files['file']
+    filename = f"temp_stt_{uuid.uuid4()}.wav"
+    
+    try:
+        file.save(filename)
+        with sr.AudioFile(filename) as source:
+            audio_data = recognizer.record(source)
+            text = recognizer.recognize_google(audio_data, language="tr-TR")
+            
+            # Sayıları ayıkla (TC için)
+            digits = "".join([c for c in text if c.isdigit()])
+            
+            return jsonify({
+                'text': text,
+                'digits': digits
+            })
+    except sr.UnknownValueError:
+        return jsonify({'error': 'Ses anlaşılamadı'}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if os.path.exists(filename):
+            os.remove(filename)
+
 print("NLP Modeli yükleniyor...")
 try:
     model = joblib.load('model.pkl')
