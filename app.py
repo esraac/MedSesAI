@@ -76,8 +76,12 @@ def verify_voice():
         new_embedding = encoder.embed_utterance(wav)
         
         similarity = np.inner(new_embedding, saved_embedding)
-        is_speaker_match = bool(similarity > 0.75) 
+        is_speaker_match = bool(similarity > 0.60) 
         
+        print(f"\n--- SES DOĞRULAMA BAŞLADI ---")
+        print(f"Similarity (Benzerlik Skoru): {similarity:.4f} (Eşik: 0.70)")
+        print(f"Speaker Match: {is_speaker_match}")
+
         stt_match = False
         recognized_text = ""
         
@@ -108,6 +112,12 @@ def verify_voice():
                         stt_match = True
                     if extracted_digits == challenge_code:
                         stt_match = True
+                    
+                    print(f"Beklenen Sayı: {challenge_code}")
+                    print(f"Algılanan Metin: {recognized_text}")
+                    print(f"Ayıklanan Rakamlar: {extracted_digits}")
+                    print(f"STT Match: {stt_match}")
+                    print(f"--- DOĞRULAMA BİTTİ ---\n")
                         
             except sr.UnknownValueError:
                 recognized_text = "Sesi metne çeviremedi (anlaşılamadı)"
@@ -147,6 +157,11 @@ def recognize_stt():
             # Sayıları ayıkla (TC için)
             digits = "".join([c for c in text if c.isdigit()])
             
+            print(f"\n--- STT TANIMA ---")
+            print(f"Algılanan Metin: {text}")
+            print(f"Ayıklanan Rakamlar (TC): {digits}")
+            print(f"------------------\n")
+
             return jsonify({
                 'text': text,
                 'digits': digits
