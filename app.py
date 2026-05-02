@@ -8,13 +8,39 @@ import uuid
 import speech_recognition as sr
 
 app = Flask(__name__)
+
 print("VoiceEncoder yükleniyor...")
 encoder = VoiceEncoder()
-print("VoiceEncoder hazır.")
+print("✓ VoiceEncoder hazır.")
 
 print("SpeechRecognition ayarlanıyor...")
 recognizer = sr.Recognizer()
-print("SpeechRecognition hazır.")
+print("✓ SpeechRecognition hazır.")
+
+print("BERT Modelleri yükleniyor...")
+try:
+    from transformers import pipeline
+    import torch
+    
+    # GPU varsa kullan (device=0), yoksa CPU (device=-1)
+    device = 0 if torch.cuda.is_available() else -1
+    
+    pipe_hastalik = pipeline("text-classification", model="bert_hastalik", device=device)
+    pipe_poliklinik = pipeline("text-classification", model="bert_poliklinik", device=device)
+    
+    print(f"✓ BERT Modelleri yüklendi (Cihaz: {'GPU' if device == 0 else 'CPU'})")
+except Exception as e:
+    print(f"❌ BERT Modelleri yüklenemedi: {e}")
+    pipe_hastalik = None
+    pipe_poliklinik = None
+
+try:
+    with open('hastalık_bolum_map.json', 'r', encoding='utf-8') as f:
+        hastalık_bolum_map = json.load(f)
+    print(f"✓ Hastalık-Poliklinik Mapping yüklendi ({len(hastalık_bolum_map)} hastalık)")
+except Exception as e:
+    print(f"❌ hastalık_bolum_map.json yüklenemedi: {e}")
+    hastalık_bolum_map = None
 
 @app.route('/api/voice/encode', methods=['POST'])
 def encode_voice():
@@ -174,44 +200,141 @@ def recognize_stt():
         if os.path.exists(filename):
             os.remove(filename)
 
-print("NLP Modeli yükleniyor...")
-try:
-    model = joblib.load('model.pkl')
-    print("NLP Modeli yüklendi.")
-except Exception as e:
-    print(f"UYARI: model.pkl bulunamadı veya yüklenemedi! Hata: {e}")
-    model = None
+# ============ NLP TAHMİN ENDPOINTS ============
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if model is None:
-        return jsonify({'error': 'Model sunucuda yüklü değil'}), 500
+    if pipe_hastalik is None or pipe_poliklinik is None:
+        return jsonify({'error': 'BERT modelleri sunucuda yüklü değil'}), 500
 
     try:
         data = request.get_json(force=True) 
         user_text = data.get('text', '')
 
+        print(f"\n--- YENİ AKILLI TAHMİN (2 AŞAMALI) ---")
         print(f"GELEN ŞİKAYET: {user_text}")
 
         if not user_text:
             return jsonify({'error': 'Metin boş geldi'}), 400
 
-        user_text_clean = user_text.lower()
-        probs = model.predict_proba([user_text_clean])[0]
-        max_prob = probs.max() 
-        prediction = model.predict([user_text_clean])[0] 
+        # BERT için temel temizlik (Küçük harf ve boşluklar)
+        user_text_clean = user_text.lower().strip()
+        print(f"BERT GİRDİSİ: {user_text_clean}")
+        
+        # AŞAMA 1: BERT Hastalık Tahmini
+        res_has = pipe_hastalik([user_text_clean], top_k=1)[0]
+        hastalik_tahmin = res_has[0]['label']
+        max_hastalik_prob = res_has[0]['score']
+        print(f"Tahmin Edilen Hastalık: {hastalik_tahmin} (Güven: {max_hastalik_prob:.2f})")
 
-        print(f"Tahmin: {prediction}, Güven: {max_prob:.2f}")
+        # AŞAMA 2: Poliklinik Listesi Çekimi
+        poliklinikler = hastalık_bolum_map.get(hastalik_tahmin, [])
+        
+        secilen_klinik = None
+        
+        if not poliklinikler:
+            secilen_klinik = hastalik_tahmin # Fallback olarak hastalık adını dön
+        elif len(poliklinikler) == 1:
+            secilen_klinik = poliklinikler[0]
+            print(f"Tek Poliklinik Var, Doğrudan Seçildi: {secilen_klinik}")
+        else:
+            # AŞAMA 3: Akıllı Tie-Breaker (İhtimal Karşılaştırma)
+            print(f"Birden Fazla Poliklinik Var: {poliklinikler}")
+            
+            # Poliklinik modelinden tüm ihtimalleri al
+            res_pol_all = pipe_poliklinik([user_text_clean], top_k=None)[0]
+            
+            # İhtimalleri sözlüğe çevir (Hızlı arama için)
+            prob_dict = {item['label']: item['score'] for item in res_pol_all}
+            
+            en_yuksek_ihtimal = -1
+            
+            for pol in poliklinikler:
+                prob = prob_dict.get(pol, 0)
+                print(f"  -> {pol} İhtimali: {prob:.4f}")
+                if prob > en_yuksek_ihtimal:
+                    en_yuksek_ihtimal = prob
+                    secilen_klinik = pol
+            
+            if not secilen_klinik:
+                secilen_klinik = poliklinikler[0]
+            
+            print(f"Akıllı Seçim Sonucu: {secilen_klinik} (Güven: {en_yuksek_ihtimal:.4f})")
 
         return jsonify({
             'semptom': user_text,
-            'onerilen_klinik': prediction,
-            'guven_orani': float(max_prob)
+            'hastalik_tahmin': hastalik_tahmin,
+            'onerilen_klinik': secilen_klinik,
+            'guven_orani': float(max_hastalik_prob)
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/predict_full', methods=['POST'])
+def predict_full():
+    """
+    FULL SİSTEM (2 AŞAMA): Semptom → Hastalık → Poliklinik
+    Girdi: {"text": "başım çok ağrıyor"}
+    Çıktı: {
+        "hastalık": "Migren", 
+        "güven": 0.95,
+        "poliklinikler": ["Nöroloji", "Beyin ve Sinir Cerrahisi"]
+    }
+    """
+    if model_hastalik is None or hastalık_bolum_map is None:
+        return jsonify({'error': 'Modeller yüklü değil'}), 500
+
+    try:
+        data = request.get_json(force=True) 
+        user_text = data.get('text', '')
+
+        print(f"\n--- FULL SİSTEM (2 AŞAMA) ---")
+        print(f"GELEN SEMPTOMlar: {user_text}")
+
+        if not user_text:
+            return jsonify({'error': 'Metin boş geldi'}), 400
+
+        # AŞAMA 1: Semptom → Hastalık
+        user_text_clean = user_text.lower()
+        probs = model_hastalik.predict_proba([user_text_clean])[0]
+        max_prob = probs.max() 
+        hastalık_tahmin = model_hastalik.predict([user_text_clean])[0]
+
+        print(f"✓ AŞAMA 1 (Semptom → Hastalık): {hastalık_tahmin} (Güven: {max_prob:.2%})")
+
+        # AŞAMA 2: Hastalık → Poliklinik
+        poliklinikler = hastalık_bolum_map.get(hastalık_tahmin, [])
+        
+        if not poliklinikler:
+            poliklinikler = []
+            print(f"⚠ Hastalık poliklinik mapping'de bulunamadı!")
+        else:
+            print(f"✓ AŞAMA 2 (Hastalık → Poliklinik): {', '.join(poliklinikler[:3])} ... (Toplam: {len(poliklinikler)})")
+
+        return jsonify({
+            'semptomlar': user_text,
+            'hastalık': hastalık_tahmin,
+            'güven_orani': float(max_prob),
+            'poliklinikler': poliklinikler,
+            'onerilen_poliklinik': poliklinikler[0] if poliklinikler else None
         })
 
     except Exception as e:
         print(f"SUNUCU HATASI: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
+@app.route('/health', methods=['GET'])
+def health():
+    """Sağlık kontrolü"""
+    return jsonify({
+        'status': 'OK',
+        'semptom_model': 'loaded' if model_hastalik else 'not_loaded',
+        'poliklinik_model': 'loaded' if model_poliklinik else 'not_loaded',
+        'mapping': 'loaded' if hastalık_bolum_map else 'not_loaded'
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
