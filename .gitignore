@@ -1,0 +1,14 @@
+# MedSesAI Yapay Zeka Modelleri (Devasa boyutlu dosyalar)
+bert_hastalik/
+bert_poliklinik/
+bert_aciliyet/
+
+# Eğitimden kalan geçici dosyalar
+results_*/
+__pycache__/
+*.pyc
+
+# IDE ve İşletim Sistemi dosyaları
+.idea/
+.vscode/
+.DS_Store

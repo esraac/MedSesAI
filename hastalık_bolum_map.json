@@ -1,0 +1,1191 @@
+{
+  "akne": [
+    "Aile Hekimliği",
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "sivilce": [
+    "Aile Hekimliği",
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "alerji": [
+    "Aile Hekimliği",
+    "Çocuk Kardiyolojisi",
+    "İmmünoloji ve Alerji Hastalıkları",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "bronşiyal astım": [
+    "Aile Hekimliği",
+    "Göğüs Hastalıkları",
+    "Radyoloji",
+    "Çocuk Gastroenterolojisi",
+    "Çocuk Göğüs Hastalıkları"
+  ],
+  "astım": [
+    "Aile Hekimliği",
+    "Göğüs Hastalıkları",
+    "Radyoloji",
+    "Çocuk Gastroenterolojisi",
+    "Çocuk Göğüs Hastalıkları",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "suçiçeği": [
+    "Aile Hekimliği",
+    "Çocuk Enfeksiyon Hastalıkları",
+    "Çocuk Genetik Hastalıkları",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "su çiçeği": [
+    "Aile Hekimliği",
+    "Çocuk Enfeksiyon Hastalıkları",
+    "Çocuk Genetik Hastalıkları",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "nezle, soğuk algınlığı": [
+    "Aile Hekimliği",
+    "Çocuk Cerrahisi",
+    "İç Hastalıkları (Dahiliye)",
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "soğuk havalarda": [
+    "Aile Hekimliği",
+    "Çocuk Cerrahisi",
+    "İç Hastalıkları (Dahiliye)",
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "diyabet": [
+    "Aile Hekimliği",
+    "Kardiyoloji",
+    "Nefroloji",
+    "Retina",
+    "Tıbbi Genetik",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "mide sorunu": [
+    "Aile Hekimliği",
+    "Gastroenteroloji",
+    "Genel Cerrahi",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "idrar yolu enfeksiyonu": [
+    "Aile Hekimliği",
+    "Jinekolojik Onkoloji Cerrahisi",
+    "Nefroloji",
+    "Neonatoloji",
+    "Çocuk Nefrolojisi",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "viral enfeksiyon": [
+    "Aile Hekimliği",
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "(vertigo) paroymsal pozisyonel vertigo": [
+    "Algoloji",
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "vertigo (baş dönmesi hastalığı)": [
+    "Algoloji",
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "osteoartrit": [
+    "Algoloji",
+    "El Cerrahisi",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Radyoloji",
+    "Romatoloji",
+    "Sağlık Kurulu Erişkin",
+    "Tıbbi Ekoloji ve Hidroklimatoloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Ortopedi ve travmatoloji",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "kireçlenme": [
+    "Algoloji",
+    "El Cerrahisi",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Radyoloji",
+    "Romatoloji",
+    "Sağlık Kurulu Erişkin",
+    "Tıbbi Ekoloji ve Hidroklimatoloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Ortopedi ve travmatoloji",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "felç": [
+    "Algoloji",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Klinik Nörofizyoloji",
+    "Radyoloji",
+    "Sağlık Kurulu Erişkin"
+  ],
+  "servikal spondiloz": [
+    "Algoloji",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Klinik Nörofizyoloji",
+    "Radyoloji"
+  ],
+  "boyunun kireçlenmesi": [
+    "Algoloji",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Klinik Nörofizyoloji",
+    "Radyoloji"
+  ],
+  "artrit": [
+    "Algoloji",
+    "El Cerrahisi",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Romatoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "ek iltihabı": [
+    "Algoloji",
+    "El Cerrahisi",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Romatoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "varisli damarlar": [
+    "Algoloji",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)",
+    "Kalp ve Damar Cerrahisi",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "varis": [
+    "Algoloji",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)",
+    "Kalp ve Damar Cerrahisi",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "diş ağrısı": [
+    "Ağız, Diş ve Çene Cerrahisi",
+    "Ağız, Diş ve Çene Radyolojisi",
+    "Diş Hekimliği (Genel Diş)",
+    "Endodonti",
+    "Periodontoloji",
+    "Restoratif Diş Tedavisi"
+  ],
+  "diş çürüğü": [
+    "Ağız, Diş ve Çene Cerrahisi",
+    "Ağız, Diş ve Çene Radyolojisi",
+    "Diş Hekimliği (Genel Diş)",
+    "Endodonti",
+    "Çocuk Diş Hekimliği"
+  ],
+  "diş eti iltihabı": [
+    "Ağız, Diş ve Çene Cerrahisi",
+    "Ağız, Diş ve Çene Radyolojisi",
+    "Diş Hekimliği (Genel Diş)",
+    "Periodontoloji",
+    "Çocuk Diş Hekimliği"
+  ],
+  "osteomiyelit": [
+    "Ağız, Diş ve Çene Cerrahisi"
+  ],
+  "çene ağrısı": [
+    "Ağız, Diş ve Çene Radyolojisi"
+  ],
+  "alkolik hepatit": [
+    "Bağımlılık",
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "sarılık": [
+    "Bağımlılık",
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "tükenmişlik": [
+    "Bağımlılık",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "Spor Hekimliği",
+    "Sualtı Hekimliği ve Hiperbarik Tıp",
+    "Tıbbi Ekoloji ve Hidroklimatoloji",
+    "Uyku Polikliniği"
+  ],
+  "endişe": [
+    "Bağımlılık",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "Uyku Polikliniği"
+  ],
+  "depresyon": [
+    "Bağımlılık",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "Uyku Polikliniği",
+    "Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları"
+  ],
+  "bulantı": [
+    "Bağımlılık"
+  ],
+  "uykusuzluk": [
+    "Bağımlılık",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "Uyku Polikliniği"
+  ],
+  "bilinç bulanıklığı, konfüzyon": [
+    "Bağımlılık",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "kusma": [
+    "Bağımlılık",
+    "Perinatoloji"
+  ],
+  "iştah kaybı": [
+    "Bağımlılık"
+  ],
+  "yoksunluk belirtileri": [
+    "Bağımlılık"
+  ],
+  "halüsinasyon": [
+    "Bağımlılık"
+  ],
+  "bağımlılık, gastroenteroloji, gastroenteroloji cerrahisi, ruh sağlığı ve hastalıkları (psikiyatri)": [
+    "Bağımlılık",
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "migren": [
+    "Beyin ve Sinir Cerrahisi",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Klinik Nörofizyoloji",
+    "Nöroloji",
+    "Radyoloji",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "felç (beyin kanaması)": [
+    "Beyin ve Sinir Cerrahisi",
+    "Kardiyoloji",
+    "Nöroloji",
+    "Uyku Polikliniği",
+    "Üroloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "beyin kanaması": [
+    "Beyin ve Sinir Cerrahisi",
+    "Kardiyoloji",
+    "Nöroloji",
+    "Uyku Polikliniği",
+    "Üroloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "kanser": [
+    "Cerrahi Onkolojisi",
+    "Radyasyon Onkolojisi"
+  ],
+  "tümör": [
+    "Cerrahi Onkolojisi"
+  ],
+  "ülseratif kolit": [
+    "Cerrahi Onkolojisi"
+  ],
+  "meme kanseri": [
+    "Cerrahi Onkolojisi"
+  ],
+  "kolon kanseri": [
+    "Cerrahi Onkolojisi"
+  ],
+  "tiroid bozuklukları": [
+    "Cerrahi Onkolojisi"
+  ],
+  "özofagus hastalığı": [
+    "Cerrahi Onkolojisi"
+  ],
+  "safra kesesi hastalığı": [
+    "Cerrahi Onkolojisi"
+  ],
+  "yumurtalık hastalığı": [
+    "Cerrahi Onkolojisi"
+  ],
+  "cerrahi onkolojisi": [
+    "Cerrahi Onkolojisi"
+  ],
+  "ağız kokusu": [
+    "Diş Hekimliği (Genel Diş)"
+  ],
+  "ağız ülserleri": [
+    "Diş Hekimliği (Genel Diş)"
+  ],
+  "romatizmal eklem iltihabı": [
+    "El Cerrahisi"
+  ],
+  "karpal tünel sendromu": [
+    "El Cerrahisi"
+  ],
+  "parmaklarda karıncalanma ve uyuşma": [
+    "El Cerrahisi"
+  ],
+  "kas israfı": [
+    "El Cerrahisi"
+  ],
+  "el cerrahisi": [
+    "El Cerrahisi"
+  ],
+  "pulpitis": [
+    "Endodonti"
+  ],
+  "diş eti kanaması": [
+    "Endodonti",
+    "Hematoloji",
+    "Periodontoloji",
+    "Restoratif Diş Tedavisi"
+  ],
+  "aıds": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Radyasyon Onkolojisi"
+  ],
+  "kronik kolestaz": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Radyoloji",
+    "Sağlık Kurulu Erişkin",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "dang humması": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Hematoloji",
+    "Nöroloji",
+    "Çocuk Cerrahisi",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "ilaç reaksiyonu": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "İmmünoloji ve Alerji Hastalıkları",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "ilaç oranları": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "İmmünoloji ve Alerji Hastalıkları",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "mantar enfeksiyonu": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Göğüs Hastalıkları",
+    "Jinekolojik Onkoloji Cerrahisi",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)",
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "hepatit b": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Hematoloji",
+    "Nefroloji",
+    "Tıbbi Genetik",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "hepatit c": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Hematoloji",
+    "Nefroloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "hepatit d": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Hematoloji",
+    "Nefroloji",
+    "Nöroloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "hepatit e": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Jinekolojik Onkoloji Cerrahisi"
+  ],
+  "impetigo": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Çocuk Göğüs Hastalıkları",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "sıtma": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Hematoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "akciğer iltihaplanması": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Perinatoloji",
+    "Radyoloji",
+    "Çocuk Enfeksiyon Hastalıkları",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "zatüre": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Perinatoloji",
+    "Radyoloji",
+    "Çocuk Enfeksiyon Hastalıkları",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "zatürre": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji",
+    "Göğüs Hastalıkları",
+    "Perinatoloji",
+    "Radyoloji",
+    "Çocuk Enfeksiyon Hastalıkları",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "tüberküloz": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Gastroenteroloji Cerrahisi",
+    "Göğüs Hastalıkları",
+    "Radyasyon Onkolojisi",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "tifo": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Hematoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "sepsis": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji"
+  ],
+  "bulaşıcı gastroenterit": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji"
+  ],
+  "hepatit a": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji"
+  ],
+  "enfeksiyon hastalıkları ve klinik mikrobiyoloji, gastroenteroloji, hematoloji, nefroloji, iç hastalıkları (dahiliye)": [
+    "Enfeksiyon Hastalıkları ve Klinik Mikrobiyoloji",
+    "Hematoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "gerd": [
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Göğüs Hastalıkları",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "reflü": [
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Göğüs Hastalıkları",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "gastroözofageal reflü hastalığı": [
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Göğüs Hastalıkları",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)",
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "peptik ülser hastalığı": [
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "mide ülseri": [
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "ülser": [
+    "Gastroenteroloji",
+    "Gastroenteroloji Cerrahisi",
+    "Genel Cerrahi",
+    "Radyoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "gastroenterit": [
+    "Gastroenteroloji",
+    "Çocuk Enfeksiyon Hastalıkları",
+    "Çocuk Nefrolojisi"
+  ],
+  "asit reflü": [
+    "Gastroenteroloji"
+  ],
+  "siroz": [
+    "Gastroenteroloji"
+  ],
+  "hazımsızlık": [
+    "Gastroenteroloji",
+    "Geleneksel Tamamlayıcı Tıp Ünitesi"
+  ],
+  "kabızlık": [
+    "Gastroenteroloji",
+    "Çocuk Gastroenterolojisi"
+  ],
+  "ishal": [
+    "Gastroenteroloji"
+  ],
+  "ıbs, irritabl barsak sendromu": [
+    "Gastroenteroloji"
+  ],
+  "akut pankreatit": [
+    "Gastroenteroloji"
+  ],
+  "kolesistit": [
+    "Gastroenteroloji"
+  ],
+  "mide-bağırsak kanaması": [
+    "Gastroenteroloji"
+  ],
+  "safra taşı": [
+    "Gastroenteroloji"
+  ],
+  "divertikülit": [
+    "Gastroenteroloji"
+  ],
+  "mide fıtığı": [
+    "Gastroenteroloji"
+  ],
+  "sedef hastalığı": [
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi",
+    "Romatoloji",
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)",
+    "Tıbbi Genetik",
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "sırt ağrısı": [
+    "Geleneksel Tamamlayıcı Tıp Ünitesi",
+    "Spor Hekimliği"
+  ],
+  "gastroenteroloji, geleneksel tamamlayıcı tıp ünitesi": [
+    "Geleneksel Tamamlayıcı Tıp Ünitesi"
+  ],
+  "hipertiroidizm": [
+    "Genel Cerrahi",
+    "Kardiyoloji",
+    "Nefroloji",
+    "Çocuk Gastroenterolojisi",
+    "Çocuk Hematolojisi ve Onkolojisi",
+    "İç Hastalıkları (Dahiliye)",
+    "Endokrinoloji ve Metabolizma Hastalıkları",
+    "Nükleer Tıp"
+  ],
+  "hipertirodi": [
+    "Genel Cerrahi",
+    "Kardiyoloji",
+    "Nefroloji",
+    "Çocuk Gastroenterolojisi",
+    "Çocuk Hematolojisi ve Onkolojisi",
+    "İç Hastalıkları (Dahiliye)",
+    "Endokrinoloji ve Metabolizma Hastalıkları",
+    "Nükleer Tıp"
+  ],
+  "apandisit": [
+    "Genel Cerrahi"
+  ],
+  "basur": [
+    "Genel Cerrahi"
+  ],
+  "hemoroid basur": [
+    "Genel Cerrahi"
+  ],
+  "koah": [
+    "Göğüs Hastalıkları"
+  ],
+  "krup": [
+    "Göğüs Hastalıkları"
+  ],
+  "bronşit": [
+    "Göğüs Hastalıkları",
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "akut bronşit": [
+    "Göğüs Hastalıkları"
+  ],
+  "akut bronşiolit": [
+    "Göğüs Hastalıkları"
+  ],
+  "akut bronkospazm": [
+    "Göğüs Hastalıkları"
+  ],
+  "enfeksiyon hastalıkları ve klinik mikrobiyoloji, gastroenteroloji cerrahisi, göğüs hastalıkları, radyasyon onkolojisi, radyoloji, iç hastalıkları (dahiliye)": [
+    "Göğüs Hastalıkları",
+    "Radyasyon Onkolojisi",
+    "Radyoloji"
+  ],
+  "anemi": [
+    "Hematoloji",
+    "Perinatoloji",
+    "Sağlık Kurulu ÇÖZGER (Çocuk Özel Gereksinim Raporu)",
+    "Çocuk Genetik Hastalıkları",
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "hipotiroidizm": [
+    "Jinekolojik Onkoloji Cerrahisi",
+    "Tıbbi Genetik",
+    "Çocuk Kardiyolojisi",
+    "Çocuk Metabolizma Hastalıkları",
+    "İç Hastalıkları (Dahiliye)",
+    "Endokrinoloji ve Metabolizma Hastalıkları"
+  ],
+  "hipotiroidi": [
+    "Jinekolojik Onkoloji Cerrahisi",
+    "Tıbbi Genetik",
+    "Çocuk Kardiyolojisi",
+    "Çocuk Metabolizma Hastalıkları",
+    "İç Hastalıkları (Dahiliye)",
+    "Endokrinoloji ve Metabolizma Hastalıkları"
+  ],
+  "kalp krizi": [
+    "Kardiyoloji",
+    "Çocuk Kardiyolojisi",
+    "Kalp ve Damar Cerrahisi"
+  ],
+  "hipertansiyon": [
+    "Kardiyoloji",
+    "Kornea",
+    "Nefroloji",
+    "Perinatoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "yüksek tansiyon": [
+    "Kardiyoloji",
+    "Kornea",
+    "Nefroloji",
+    "Perinatoloji",
+    "İç Hastalıkları (Dahiliye)"
+  ],
+  "sinüs bradikardisi": [
+    "Kardiyoloji"
+  ],
+  "hipertansif kalp hastalığı": [
+    "Kardiyoloji"
+  ],
+  "anjina": [
+    "Kardiyoloji"
+  ],
+  "göğüs ağrısı": [
+    "Kardiyoloji",
+    "Sualtı Hekimliği ve Hiperbarik Tıp"
+  ],
+  "kardiyoloji, nefroloji, perinatoloji, iç hastalıkları (dahiliye)": [
+    "Kardiyoloji",
+    "Nefroloji",
+    "Perinatoloji"
+  ],
+  "epilepsi": [
+    "Klinik Nörofizyoloji",
+    "Sağlık Kurulu ÇÖZGER (Çocuk Özel Gereksinim Raporu)",
+    "Tıbbi Genetik",
+    "Çocuk Nörolojisi"
+  ],
+  "baş dönmesi": [
+    "Klinik Nörofizyoloji",
+    "Nöroloji",
+    "Spor Hekimliği",
+    "Sualtı Hekimliği ve Hiperbarik Tıp",
+    "Kulak Burun Boğaz (KBB)",
+    "Fiziksel Tıp ve Rehabilitasyon (FTR)"
+  ],
+  "nöropati": [
+    "Klinik Nörofizyoloji"
+  ],
+  "denge kaybı": [
+    "Klinik Nörofizyoloji"
+  ],
+  "kas zayıflığı": [
+    "Klinik Nörofizyoloji",
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "konjonktivit": [
+    "Kornea",
+    "Oküloplasti"
+  ],
+  "göz iltihabı": [
+    "Kornea"
+  ],
+  "görme sorunları": [
+    "Kornea"
+  ],
+  "yenidoğan sarılığı": [
+    "Neonatoloji"
+  ],
+  "beyin sarsıntısı": [
+    "Nöroloji"
+  ],
+  "multipl skleroz": [
+    "Nöroloji"
+  ],
+  "periferik sinir bozukluğu": [
+    "Nöroloji"
+  ],
+  "brakiyal nörit": [
+    "Nöroloji"
+  ],
+  "pitozis": [
+    "Oküloplasti"
+  ],
+  "göz çevresinde şişlik": [
+    "Oküloplasti"
+  ],
+  "bulanık görüş": [
+    "Oküloplasti",
+    "Retina"
+  ],
+  "gebelik diyabeti": [
+    "Perinatoloji"
+  ],
+  "ateş": [
+    "Perinatoloji"
+  ],
+  "preeklampsi": [
+    "Perinatoloji"
+  ],
+  "kötü nefes kokusu": [
+    "Periodontoloji"
+  ],
+  "ağrılı diş etleri": [
+    "Periodontoloji"
+  ],
+  "periodontitis": [
+    "Periodontoloji"
+  ],
+  "ağız enfeksiyonu": [
+    "Periodontoloji"
+  ],
+  "yanak çevresinde şişlik": [
+    "Periodontoloji"
+  ],
+  "periodontoloji": [
+    "Periodontoloji"
+  ],
+  "yanıklar": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi"
+  ],
+  "kırık": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi",
+    "Radyoloji",
+    "Spor Hekimliği"
+  ],
+  "dislokasyon": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi",
+    "Radyoloji"
+  ],
+  "cilt enfeksiyonu": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi"
+  ],
+  "kapsamlı deri hastalığı": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi"
+  ],
+  "kist": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi"
+  ],
+  "vitiligo": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi"
+  ],
+  "plastik, rekonstrüktif ve estetik cerrahi": [
+    "Plastik, Rekonstrüktif ve Estetik Cerrahi"
+  ],
+  "kötü nefes": [
+    "Restoratif Diş Tedavisi"
+  ],
+  "restoratif diş tedavisi": [
+    "Restoratif Diş Tedavisi"
+  ],
+  "görme bozuklukları": [
+    "Retina"
+  ],
+  "ruh hali değişimleri": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "sinirlilik": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "deliryum": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "engelli": [
+    "Sağlık Kurulu Erişkin"
+  ],
+  "çalışma durumu": [
+    "Sağlık Kurulu Erişkin"
+  ],
+  "zihinsel karışıklık": [
+    "Sağlık Kurulu ÇÖZGER (Çocuk Özel Gereksinim Raporu)"
+  ],
+  "otizm": [
+    "Sağlık Kurulu ÇÖZGER (Çocuk Özel Gereksinim Raporu)",
+    "Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları"
+  ],
+  "zihinsel seviye": [
+    "Sağlık Kurulu ÇÖZGER (Çocuk Özel Gereksinim Raporu)"
+  ],
+  "sağlık kurulu çözger (çocuk özel gereksinim raporu)": [
+    "Sağlık Kurulu ÇÖZGER (Çocuk Özel Gereksinim Raporu)"
+  ],
+  "kas ağrısı": [
+    "Spor Hekimliği"
+  ],
+  "eklem ağrısı": [
+    "Spor Hekimliği",
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "eklemlerin şişmesi": [
+    "Spor Hekimliği",
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "kramp": [
+    "Spor Hekimliği"
+  ],
+  "burkulma": [
+    "Spor Hekimliği"
+  ],
+  "boyun ağrısı": [
+    "Spor Hekimliği"
+  ],
+  "yaralanma geçmişi": [
+    "Spor Hekimliği"
+  ],
+  "vücudun bir tarafının zayıflığı": [
+    "Spor Hekimliği"
+  ],
+  "karbon monoksit zehirlenmesi": [
+    "Sualtı Hekimliği ve Hiperbarik Tıp"
+  ],
+  "nefes darlığı": [
+    "Sualtı Hekimliği ve Hiperbarik Tıp"
+  ],
+  "baş ağrısı": [
+    "Sualtı Hekimliği ve Hiperbarik Tıp",
+    "Uyku Polikliniği"
+  ],
+  "basınca bağlı bozukluklar": [
+    "Sualtı Hekimliği ve Hiperbarik Tıp"
+  ],
+  "dalgıç hastalıkları": [
+    "Sualtı Hekimliği ve Hiperbarik Tıp"
+  ],
+  "iklim": [
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "kronik yorgunluk": [
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "titreme": [
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "miyalji": [
+    "Tıbbi Ekoloji ve Hidroklimatoloji"
+  ],
+  "alzheimer": [
+    "Tıbbi Genetik"
+  ],
+  "tıbbi genetik": [
+    "Tıbbi Genetik"
+  ],
+  "uyku apnesi": [
+    "Uyku Polikliniği"
+  ],
+  "aşırı uykululuk": [
+    "Uyku Polikliniği"
+  ],
+  "horlama": [
+    "Uyku Polikliniği"
+  ],
+  "rem bozuklukları": [
+    "Uyku Polikliniği"
+  ],
+  "zayıflık": [
+    "Uyku Polikliniği"
+  ],
+  "uyku polikliniği": [
+    "Uyku Polikliniği"
+  ],
+  "kasık fıtığı": [
+    "Çocuk Cerrahisi"
+  ],
+  "pilor stenozu": [
+    "Çocuk Cerrahisi"
+  ],
+  "inmemiş testis": [
+    "Çocuk Cerrahisi"
+  ],
+  "bağırsak atrezisi": [
+    "Çocuk Cerrahisi"
+  ],
+  "hirschsprung hastalığı": [
+    "Çocuk Cerrahisi"
+  ],
+  "gastroşizis": [
+    "Çocuk Cerrahisi"
+  ],
+  "hipospadias": [
+    "Çocuk Cerrahisi"
+  ],
+  "testis torsiyonu": [
+    "Çocuk Cerrahisi"
+  ],
+  "çocuk cerrahisi": [
+    "Çocuk Cerrahisi"
+  ],
+  "diş travması": [
+    "Çocuk Diş Hekimliği"
+  ],
+  "mine hipoplazisi": [
+    "Çocuk Diş Hekimliği"
+  ],
+  "maloklüzyon": [
+    "Çocuk Diş Hekimliği"
+  ],
+  "çocuk diş hekimliği": [
+    "Çocuk Diş Hekimliği"
+  ],
+  "kabakulak": [
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "kızamık": [
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "kızamıkçık": [
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "boğmaca": [
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "grip": [
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "çocuk enfeksiyon hastalıkları": [
+    "Çocuk Enfeksiyon Hastalıkları"
+  ],
+  "laktoz intoleransı": [
+    "Çocuk Gastroenterolojisi"
+  ],
+  "çölyak hastalığı": [
+    "Çocuk Gastroenterolojisi"
+  ],
+  "gastroözofageal reflü (gerd)": [
+    "Çocuk Gastroenterolojisi"
+  ],
+  "karın ağrısı": [
+    "Çocuk Gastroenterolojisi"
+  ],
+  "irritabl bağırsak sendromu (ıbs)": [
+    "Çocuk Gastroenterolojisi"
+  ],
+  "peptik ülser": [
+    "Çocuk Gastroenterolojisi"
+  ],
+  "down sendromu": [
+    "Çocuk Genetik Hastalıkları"
+  ],
+  "turner sendromu": [
+    "Çocuk Genetik Hastalıkları"
+  ],
+  "kistik fibrozis": [
+    "Çocuk Genetik Hastalıkları"
+  ],
+  "bronşiyolit": [
+    "Çocuk Göğüs Hastalıkları"
+  ],
+  "akut solunum yolu enfeksiyonları": [
+    "Çocuk Göğüs Hastalıkları"
+  ],
+  "pediatrik tüberküloz": [
+    "Çocuk Göğüs Hastalıkları"
+  ],
+  "kronik öksürük": [
+    "Çocuk Göğüs Hastalıkları"
+  ],
+  "lösemi": [
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "lenfoma": [
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "hemofili": [
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "primer immün yetmezlik bozuklukları": [
+    "Çocuk Hematolojisi ve Onkolojisi"
+  ],
+  "konjenital kalp kusurları": [
+    "Çocuk Kardiyolojisi"
+  ],
+  "kalp üfürümleri": [
+    "Çocuk Kardiyolojisi"
+  ],
+  "aritmiler": [
+    "Çocuk Kardiyolojisi"
+  ],
+  "romatizmal kalp hastalığı": [
+    "Çocuk Kardiyolojisi"
+  ],
+  "enfektif endokardit": [
+    "Çocuk Kardiyolojisi"
+  ],
+  "çocuk kardiyolojisi": [
+    "Çocuk Kardiyolojisi"
+  ],
+  "dimorfik hemoroidler (kazıklar)": [
+    "Çocuk Metabolizma Hastalıkları"
+  ],
+  "fenilketonüri": [
+    "Çocuk Metabolizma Hastalıkları"
+  ],
+  "galaktozemi": [
+    "Çocuk Metabolizma Hastalıkları"
+  ],
+  "biyotinidaz eksikliği": [
+    "Çocuk Metabolizma Hastalıkları"
+  ],
+  "glikojen depolama hastalığı": [
+    "Çocuk Metabolizma Hastalıkları"
+  ],
+  "nefrotik sendrom": [
+    "Çocuk Nefrolojisi"
+  ],
+  "glomerülonefrit": [
+    "Çocuk Nefrolojisi"
+  ],
+  "vezikoüreteral reflü": [
+    "Çocuk Nefrolojisi"
+  ],
+  "polikistik böbrek hastalığı": [
+    "Çocuk Nefrolojisi"
+  ],
+  "çocuk nefrolojisi": [
+    "Çocuk Nefrolojisi"
+  ],
+  "otizm spektrum bozukluğu": [
+    "Çocuk Nörolojisi"
+  ],
+  "gelişimsel gecikme": [
+    "Çocuk Nörolojisi"
+  ],
+  "serebral palsi": [
+    "Çocuk Nörolojisi"
+  ],
+  "kas distrofisi": [
+    "Çocuk Nörolojisi"
+  ],
+  "mikrosefali": [
+    "Çocuk Nörolojisi"
+  ],
+  "çocuk nörolojisi": [
+    "Çocuk Nörolojisi"
+  ],
+  "dehb": [
+    "Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları"
+  ],
+  "anksiyete bozuklukları": [
+    "Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları"
+  ],
+  "tik bozuklukları": [
+    "Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları"
+  ],
+  "davranış bozuklukları": [
+    "Çocuk ve Ergen Ruh Sağlığı ve Hastalıkları"
+  ],
+  "akut böbrek hasarı": [
+    "Üroloji"
+  ],
+  "iyi huylu prostat hiperplazisi (bph)": [
+    "Üroloji"
+  ],
+  "sistit": [
+    "Üroloji"
+  ],
+  "hipoglisemi": [
+    "İç Hastalıkları (Dahiliye)",
+    "Endokrinoloji ve Metabolizma Hastalıkları"
+  ],
+  "şaşılık": [
+    "Şaşılık"
+  ],
+  "bacak yaralanması": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "kol yaralanması": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "burkulma veya zorlanma": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "kalça artriti": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "omurilik stenozu": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "fıtıklaşmış disk": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "spondiloz": [
+    "Ortopedi ve travmatoloji"
+  ],
+  "aktinik keratoz": [
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "bebek bezi döküntüsü": [
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "egzama": [
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "cilt polipi": [
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "yağ kisti": [
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "kontakt dermatit": [
+    "Deri ve Zührevi Hastalıkları(Dermatoloji)"
+  ],
+  "akut sinüzit": [
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "orta kulak iltihabı": [
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "boğaz ağrısı": [
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "kulak zarı hasarı": [
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "arpacık": [
+    "Kulak Burun Boğaz (KBB)"
+  ],
+  "panik atak": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "kişilik bozukluğu": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "esrar kötüye kullanımı": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "kaygı bozukluğu": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "şizofreni": [
+    "Ruh Sağlığı ve Hastalıkları (Psikiyatri)"
+  ],
+  "gut": [
+    "İç Hastalıkları (Dahiliye)"
+  ]
+}
