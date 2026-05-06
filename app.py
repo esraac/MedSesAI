@@ -28,11 +28,19 @@ try:
     pipe_hastalik = pipeline("text-classification", model="bert_hastalik", device=device)
     pipe_poliklinik = pipeline("text-classification", model="bert_poliklinik", device=device)
     
+    try:
+        pipe_aciliyet = pipeline("text-classification", model="bert_aciliyet", device=device)
+        print(f"✓ Aciliyet Modeli yüklendi (Cihaz: {'GPU' if device == 0 else 'CPU'})")
+    except Exception as e:
+        print(f"⚠ Aciliyet Modeli yüklenemedi, sistem normal çalışmaya devam edecek: {e}")
+        pipe_aciliyet = None
+    
     print(f"✓ BERT Modelleri yüklendi (Cihaz: {'GPU' if device == 0 else 'CPU'})")
 except Exception as e:
     print(f"❌ BERT Modelleri yüklenemedi: {e}")
     pipe_hastalik = None
     pipe_poliklinik = None
+    pipe_aciliyet = None
 
 try:
     with open('hastalık_bolum_map.json', 'r', encoding='utf-8') as f:
@@ -200,7 +208,6 @@ def recognize_stt():
         if os.path.exists(filename):
             os.remove(filename)
 
-# ============ NLP TAHMİN ENDPOINTS ============
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -211,130 +218,97 @@ def predict():
         data = request.get_json(force=True) 
         user_text = data.get('text', '')
 
-        print(f"\n--- YENİ AKILLI TAHMİN (2 AŞAMALI) ---")
-        print(f"GELEN ŞİKAYET: {user_text}")
-
         if not user_text:
             return jsonify({'error': 'Metin boş geldi'}), 400
 
-        # BERT için temel temizlik (Küçük harf ve boşluklar)
+        # BERT için temel temizlik 
         user_text_clean = user_text.lower().strip()
         print(f"BERT GİRDİSİ: {user_text_clean}")
         
-        # AŞAMA 1: BERT Hastalık Tahmini
-        res_has = pipe_hastalik([user_text_clean], top_k=1)[0]
-        hastalik_tahmin = res_has[0]['label']
-        max_hastalik_prob = res_has[0]['score']
-        print(f"Tahmin Edilen Hastalık: {hastalik_tahmin} (Güven: {max_hastalik_prob:.2f})")
-
-        # AŞAMA 2: Poliklinik Listesi Çekimi
-        poliklinikler = hastalık_bolum_map.get(hastalik_tahmin, [])
+        # ilk 5 al 
+        res_has_top3 = pipe_hastalik([user_text_clean], top_k=5)[0]
         
-        secilen_klinik = None
-        
-        if not poliklinikler:
-            secilen_klinik = hastalik_tahmin # Fallback olarak hastalık adını dön
-        elif len(poliklinikler) == 1:
-            secilen_klinik = poliklinikler[0]
-            print(f"Tek Poliklinik Var, Doğrudan Seçildi: {secilen_klinik}")
-        else:
-            # AŞAMA 3: Akıllı Tie-Breaker (İhtimal Karşılaştırma)
-            print(f"Birden Fazla Poliklinik Var: {poliklinikler}")
-            
-            # Poliklinik modelinden tüm ihtimalleri al
+        prob_dict = {}
+        if pipe_poliklinik is not None:
             res_pol_all = pipe_poliklinik([user_text_clean], top_k=None)[0]
-            
-            # İhtimalleri sözlüğe çevir (Hızlı arama için)
             prob_dict = {item['label']: item['score'] for item in res_pol_all}
             
-            en_yuksek_ihtimal = -1
+        print(f"\n--- ENSEMBLE RE-RANKING (ÇAPRAZ DOĞRULAMA) ---")
+        
+        best_score = -1.0
+        final_hastalik = res_has_top3[0]['label']
+        final_klinik = None
+        final_hastalik_prob = res_has_top3[0]['score']
+        
+        for idx, has_item in enumerate(res_has_top3):
+            hastalik_adi = has_item['label']
+            h_score = has_item['score']
             
-            for pol in poliklinikler:
-                prob = prob_dict.get(pol, 0)
-                print(f"  -> {pol} İhtimali: {prob:.4f}")
-                if prob > en_yuksek_ihtimal:
-                    en_yuksek_ihtimal = prob
-                    secilen_klinik = pol
+            ilgili_klinikler = hastalık_bolum_map.get(hastalik_adi, [])
             
-            if not secilen_klinik:
-                secilen_klinik = poliklinikler[0]
+            max_p_score = 0
+            en_iyi_klinik = None
             
-            print(f"Akıllı Seçim Sonucu: {secilen_klinik} (Güven: {en_yuksek_ihtimal:.4f})")
+            for pk in ilgili_klinikler:
+                p_score = prob_dict.get(pk, 0.0)
+                if p_score > max_p_score:
+                    max_p_score = p_score
+                    en_iyi_klinik = pk
+            
+            # çapraz doğrulama
+            # eğer hastalıkla eşleşen hiçbir poliklinik yoksa 0.01 ceza verilir
+            cross_score = h_score * max_p_score if max_p_score > 0 else h_score * 0.01 
+            
+            print(f"[{idx+1}] {hastalik_adi} ({h_score:.3f}) -> {en_iyi_klinik} ({max_p_score:.3f}) | Çapraz Skor: {cross_score:.4f}")
+            
+            if cross_score > best_score:
+                best_score = cross_score
+                final_hastalik = hastalik_adi
+                final_klinik = en_iyi_klinik
+                final_hastalik_prob = h_score
+                
+        if not final_klinik:
+            final_klinik = "İç Hastalıkları (Dahiliye)"
+            print("⚠ Klinik bulunamadı, İç Hastalıkları (Dahiliye) önerildi.")
+            
+        print(f"NİHAİ KARAR -> Hastalık: {final_hastalik}, Klinik: {final_klinik}")
+        print("----------------------------------------------\n")
+        
+        hastalik_tahmin = final_hastalik
+        secilen_klinik = final_klinik
+        max_hastalik_prob = final_hastalik_prob
+
+        # aciliyet Tahmini
+        aciliyet_durumu = "NORMAL"
+        acil_uyarisi = ""
+        
+        if pipe_aciliyet is not None:
+            res_acil = pipe_aciliyet([user_text_clean], top_k=1)[0]
+            aciliyet_durumu = res_acil[0]['label']
+            print(f"Aciliyet Tahmini: {aciliyet_durumu} (Güven: {res_acil[0]['score']:.2f})")
+            
+            if aciliyet_durumu in ["ACİL", "ÇOK ACİL"]:
+                acil_uyarisi = f"DİKKAT: Belirtileriniz {aciliyet_durumu} sinyali veriyor. Lütfen vakit kaybetmeden 112'yi arayın veya en yakın Acil Servise başvurun!"
+                final_klinik = "Acil Tıp"
+                print("⚠ Acil durum tespit edildi, poliklinik yönlendirmesi 'Acil Tıp' olarak ezildi.")
+
+        hastalik_tahmin = final_hastalik
+        secilen_klinik = final_klinik
+        max_hastalik_prob = final_hastalik_prob
 
         return jsonify({
             'semptom': user_text,
             'hastalik_tahmin': hastalik_tahmin,
             'onerilen_klinik': secilen_klinik,
-            'guven_orani': float(max_hastalik_prob)
+            'guven_orani': float(max_hastalik_prob),
+            'aciliyet_durumu': aciliyet_durumu,
+            'acil_uyarisi': acil_uyarisi
         })
 
     except Exception as e:
         import traceback
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
-
-@app.route('/predict_full', methods=['POST'])
-def predict_full():
-    """
-    FULL SİSTEM (2 AŞAMA): Semptom → Hastalık → Poliklinik
-    Girdi: {"text": "başım çok ağrıyor"}
-    Çıktı: {
-        "hastalık": "Migren", 
-        "güven": 0.95,
-        "poliklinikler": ["Nöroloji", "Beyin ve Sinir Cerrahisi"]
-    }
-    """
-    if model_hastalik is None or hastalık_bolum_map is None:
-        return jsonify({'error': 'Modeller yüklü değil'}), 500
-
-    try:
-        data = request.get_json(force=True) 
-        user_text = data.get('text', '')
-
-        print(f"\n--- FULL SİSTEM (2 AŞAMA) ---")
-        print(f"GELEN SEMPTOMlar: {user_text}")
-
-        if not user_text:
-            return jsonify({'error': 'Metin boş geldi'}), 400
-
-        # AŞAMA 1: Semptom → Hastalık
-        user_text_clean = user_text.lower()
-        probs = model_hastalik.predict_proba([user_text_clean])[0]
-        max_prob = probs.max() 
-        hastalık_tahmin = model_hastalik.predict([user_text_clean])[0]
-
-        print(f"✓ AŞAMA 1 (Semptom → Hastalık): {hastalık_tahmin} (Güven: {max_prob:.2%})")
-
-        # AŞAMA 2: Hastalık → Poliklinik
-        poliklinikler = hastalık_bolum_map.get(hastalık_tahmin, [])
-        
-        if not poliklinikler:
-            poliklinikler = []
-            print(f"⚠ Hastalık poliklinik mapping'de bulunamadı!")
-        else:
-            print(f"✓ AŞAMA 2 (Hastalık → Poliklinik): {', '.join(poliklinikler[:3])} ... (Toplam: {len(poliklinikler)})")
-
-        return jsonify({
-            'semptomlar': user_text,
-            'hastalık': hastalık_tahmin,
-            'güven_orani': float(max_prob),
-            'poliklinikler': poliklinikler,
-            'onerilen_poliklinik': poliklinikler[0] if poliklinikler else None
-        })
-
-    except Exception as e:
-        print(f"SUNUCU HATASI: {str(e)}")
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/health', methods=['GET'])
-def health():
-    """Sağlık kontrolü"""
-    return jsonify({
-        'status': 'OK',
-        'semptom_model': 'loaded' if model_hastalik else 'not_loaded',
-        'poliklinik_model': 'loaded' if model_poliklinik else 'not_loaded',
-        'mapping': 'loaded' if hastalık_bolum_map else 'not_loaded'
-    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
