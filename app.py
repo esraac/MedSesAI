@@ -19,17 +19,24 @@ print("✓ SpeechRecognition hazır.")
 
 print("BERT Modelleri yükleniyor...")
 try:
-    from transformers import pipeline
+    from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
     import torch
     
     # GPU varsa kullan (device=0), yoksa CPU (device=-1)
     device = 0 if torch.cuda.is_available() else -1
     
-    pipe_hastalik = pipeline("text-classification", model="bert_hastalik", device=device)
-    pipe_poliklinik = pipeline("text-classification", model="bert_poliklinik", device=device)
+    def load_custom_pipeline(model_path):
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
+        if "token_type_ids" in tokenizer.model_input_names:
+            tokenizer.model_input_names.remove("token_type_ids")
+        model = AutoModelForSequenceClassification.from_pretrained(model_path)
+        return pipeline("text-classification", model=model, tokenizer=tokenizer, device=device)
+    
+    pipe_hastalik = load_custom_pipeline("bert_hastalik")
+    pipe_poliklinik = load_custom_pipeline("bert_poliklinik")
     
     try:
-        pipe_aciliyet = pipeline("text-classification", model="bert_aciliyet", device=device)
+        pipe_aciliyet = load_custom_pipeline("bert_aciliyet")
         print(f"✓ Aciliyet Modeli yüklendi (Cihaz: {'GPU' if device == 0 else 'CPU'})")
     except Exception as e:
         print(f"⚠ Aciliyet Modeli yüklenemedi, sistem normal çalışmaya devam edecek: {e}")
