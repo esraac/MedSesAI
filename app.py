@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from resemblyzer import VoiceEncoder, preprocess_wav
+from scipy.spatial.distance import cosine
 import numpy as np
 import os
 import json
@@ -116,8 +117,8 @@ def verify_voice():
         wav = preprocess_wav(filename)
         new_embedding = encoder.embed_utterance(wav)
         
-        similarity = np.inner(new_embedding, saved_embedding)
-        is_speaker_match = bool(similarity > 0.60) 
+        similarity = 1 - cosine(new_embedding, saved_embedding)
+        is_speaker_match = bool(similarity > 0.70) 
         
         print(f"\n--- SES DOĞRULAMA BAŞLADI ---")
         print(f"Similarity (Benzerlik Skoru): {similarity:.4f} (Eşik: 0.70)")
