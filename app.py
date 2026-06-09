@@ -6,7 +6,19 @@ import os
 import json
 import joblib
 import uuid 
+import re
 import speech_recognition as sr
+
+def turkish_lower(text):
+    if not isinstance(text, str): return ''
+    return text.replace('İ', 'i').replace('I', 'ı').replace('Ğ', 'ğ').replace('Ü', 'ü').replace('Ş', 'ş').replace('Ö', 'ö').replace('Ç', 'ç').lower()
+
+def clean_text(text):
+    if not isinstance(text, str): return ''
+    text = turkish_lower(text.strip())
+    text = re.sub(r'\s+', ' ', text)
+    return text
+
 
 app = Flask(__name__)
 
@@ -230,7 +242,7 @@ def predict():
             return jsonify({'error': 'Metin boş geldi'}), 400
 
         # BERT için temel temizlik 
-        user_text_clean = user_text.lower().strip()
+        user_text_clean = clean_text(user_text)
         print(f"BERT GİRDİSİ: {user_text_clean}")
         
         # ilk 5 al 
@@ -282,12 +294,8 @@ def predict():
         print(f"NİHAİ KARAR -> Hastalık: {final_hastalik}, Klinik: {final_klinik}")
         print("----------------------------------------------\n")
         
-    
+        # 1. Sadece top-5 hastalıkla ilişkili polikliniklerin çapraz skorlarını hesaplayıp ekleyelim
         clinic_scores = {}
-        if pipe_poliklinik is not None:
-            for pk, p_score in prob_dict.items():
-                clinic_scores[pk] = 0.01 * p_score # Başlangıçta cezalı skor
-                
         for has_item in res_has_top3:
             hastalik_adi = has_item['label']
             h_score = has_item['score']
@@ -301,17 +309,20 @@ def predict():
         sorted_clinics = sorted(clinic_scores.items(), key=lambda x: x[1], reverse=True)
         top_3_clinics = [item[0] for item in sorted_clinics[:3]]
         
+        # 2. Eğer yeterli klinik yoksa (3'ten azsa), doğrudan poliklinik modelinin tahminlerinden ekle (ceza uygulayarak sıralamada geride tutalım)
+        if len(top_3_clinics) < 3 and pipe_poliklinik is not None:
+            sorted_raw_clinics = sorted(prob_dict.items(), key=lambda x: x[1], reverse=True)
+            for pk, p_score in sorted_raw_clinics:
+                if len(top_3_clinics) >= 3:
+                    break
+                if pk not in top_3_clinics:
+                    top_3_clinics.append(pk)
+        
+        # 3. Hala 3'ten azsa, varsayılan fallback poliklinikleri ekle
         default_fallback = ["İç Hastalıkları (Dahiliye)", "Aile Hekimliği", "Acil Tıp"]
         for fallback in default_fallback:
             if len(top_3_clinics) < 3 and fallback not in top_3_clinics:
                 top_3_clinics.append(fallback)
-                
-        
-        if final_klinik:
-            if final_klinik in top_3_clinics:
-                top_3_clinics.remove(final_klinik)
-            top_3_clinics.insert(0, final_klinik)
-            top_3_clinics = top_3_clinics[:3]
 
         # aciliyet Tahmini
         aciliyet_durumu = "NORMAL"
@@ -327,7 +338,7 @@ def predict():
                 final_klinik = "Acil Tıp"
                 print("⚠ Acil durum tespit edildi, poliklinik yönlendirmesi 'Acil Tıp' olarak ezildi.")
 
-       
+        # Nihai olarak final_klinik'i listenin ilk sırasına yerleştir
         if final_klinik:
             if final_klinik in top_3_clinics:
                 top_3_clinics.remove(final_klinik)
