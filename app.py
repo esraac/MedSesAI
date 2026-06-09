@@ -282,9 +282,36 @@ def predict():
         print(f"NİHAİ KARAR -> Hastalık: {final_hastalik}, Klinik: {final_klinik}")
         print("----------------------------------------------\n")
         
-        hastalik_tahmin = final_hastalik
-        secilen_klinik = final_klinik
-        max_hastalik_prob = final_hastalik_prob
+    
+        clinic_scores = {}
+        if pipe_poliklinik is not None:
+            for pk, p_score in prob_dict.items():
+                clinic_scores[pk] = 0.01 * p_score # Başlangıçta cezalı skor
+                
+        for has_item in res_has_top3:
+            hastalik_adi = has_item['label']
+            h_score = has_item['score']
+            ilgili_klinikler = hastalık_bolum_map.get(hastalik_adi, []) if hastalık_bolum_map else []
+            for pk in ilgili_klinikler:
+                p_score = prob_dict.get(pk, 0.0)
+                cross_score = h_score * p_score
+                if cross_score > clinic_scores.get(pk, 0.0):
+                    clinic_scores[pk] = cross_score
+                    
+        sorted_clinics = sorted(clinic_scores.items(), key=lambda x: x[1], reverse=True)
+        top_3_clinics = [item[0] for item in sorted_clinics[:3]]
+        
+        default_fallback = ["İç Hastalıkları (Dahiliye)", "Aile Hekimliği", "Acil Tıp"]
+        for fallback in default_fallback:
+            if len(top_3_clinics) < 3 and fallback not in top_3_clinics:
+                top_3_clinics.append(fallback)
+                
+        
+        if final_klinik:
+            if final_klinik in top_3_clinics:
+                top_3_clinics.remove(final_klinik)
+            top_3_clinics.insert(0, final_klinik)
+            top_3_clinics = top_3_clinics[:3]
 
         # aciliyet Tahmini
         aciliyet_durumu = "NORMAL"
@@ -300,14 +327,21 @@ def predict():
                 final_klinik = "Acil Tıp"
                 print("⚠ Acil durum tespit edildi, poliklinik yönlendirmesi 'Acil Tıp' olarak ezildi.")
 
+       
+        if final_klinik:
+            if final_klinik in top_3_clinics:
+                top_3_clinics.remove(final_klinik)
+            top_3_clinics.insert(0, final_klinik)
+            top_3_clinics = top_3_clinics[:3]
+
         hastalik_tahmin = final_hastalik
-        secilen_klinik = final_klinik
+        secilen_klinikler = top_3_clinics
         max_hastalik_prob = final_hastalik_prob
 
         return jsonify({
             'semptom': user_text,
             'hastalik_tahmin': hastalik_tahmin,
-            'onerilen_klinik': secilen_klinik,
+            'onerilen_klinik': secilen_klinikler,
             'guven_orani': float(max_hastalik_prob),
             'aciliyet_durumu': aciliyet_durumu,
             'acil_uyarisi': acil_uyarisi
