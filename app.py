@@ -293,7 +293,7 @@ def predict():
         print(f"NİHAİ KARAR -> Hastalık: {final_hastalik}, Klinik: {final_klinik}")
         print("----------------------------------------------\n")
         
-        # 1. En yüksek skorlu 5 hastalık arasından sıralı olarak poliklinikleri seçelim (tekrar etmeden)
+        # 1. En yüksek skorlu 5 hastalık arasından sıralı olarak poliklinikleri seçelim (tekrar etmeden ve olasılığı %1'in altında olanları eleyerek)
         top_3_clinics = [final_klinik]
         
         for has_item in res_has_top3[1:]:
@@ -308,18 +308,19 @@ def predict():
                     max_p_score = p_score
                     best_pk_for_disease = pk
             
-            if best_pk_for_disease and best_pk_for_disease not in top_3_clinics:
+            # Sadece olasılığı en az %1 (0.01) olan klinikleri listeye alalım
+            if best_pk_for_disease and max_p_score >= 0.01 and best_pk_for_disease not in top_3_clinics:
                 top_3_clinics.append(best_pk_for_disease)
                 if len(top_3_clinics) >= 3:
                     break
         
-        # 2. Eğer yeterli klinik yoksa (3'ten azsa), doğrudan poliklinik modelinin tahminlerinden ekle (ceza uygulayarak sıralamada geride tutalım)
+        # 2. Eğer yeterli klinik yoksa (3'ten azsa), doğrudan poliklinik modelinin tahminlerinden ekle (olasılığı %1 ve üzeri olanları alalım)
         if len(top_3_clinics) < 3 and pipe_poliklinik is not None:
             sorted_raw_clinics = sorted(prob_dict.items(), key=lambda x: x[1], reverse=True)
             for pk, p_score in sorted_raw_clinics:
                 if len(top_3_clinics) >= 3:
                     break
-                if pk not in top_3_clinics:
+                if p_score >= 0.01 and pk not in top_3_clinics:
                     top_3_clinics.append(pk)
         
         # 3. Hala 3'ten azsa, varsayılan fallback poliklinikleri ekle
