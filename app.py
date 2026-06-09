@@ -255,37 +255,36 @@ def predict():
             
         print(f"\n--- ENSEMBLE RE-RANKING (ÇAPRAZ DOĞRULAMA) ---")
         
-        best_score = -1.0
-        final_hastalik = res_has_top3[0]['label']
-        final_klinik = None
-        final_hastalik_prob = res_has_top3[0]['score']
-        
+        # Çapraz skorları sadece terminale yazdırmak ve loglamak için hesaplayalım
         for idx, has_item in enumerate(res_has_top3):
             hastalik_adi = has_item['label']
             h_score = has_item['score']
-            
-            ilgili_klinikler = hastalık_bolum_map.get(hastalik_adi, [])
+            ilgili_klinikler = hastalık_bolum_map.get(hastalik_adi, []) if hastalık_bolum_map else []
             
             max_p_score = 0
             en_iyi_klinik = None
-            
             for pk in ilgili_klinikler:
                 p_score = prob_dict.get(pk, 0.0)
                 if p_score > max_p_score:
                     max_p_score = p_score
                     en_iyi_klinik = pk
             
-            # çapraz doğrulama
-            # eğer hastalıkla eşleşen hiçbir poliklinik yoksa 0.01 ceza verilir
             cross_score = h_score * max_p_score if max_p_score > 0 else h_score * 0.01 
-            
             print(f"[{idx+1}] {hastalik_adi} ({h_score:.3f}) -> {en_iyi_klinik} ({max_p_score:.3f}) | Çapraz Skor: {cross_score:.4f}")
             
-            if cross_score > best_score:
-                best_score = cross_score
-                final_hastalik = hastalik_adi
-                final_klinik = en_iyi_klinik
-                final_hastalik_prob = h_score
+        # Modelin tahmin ettiği en yüksek olasılıklı hastalık doğrudan nihai kararımız olmalı
+        final_hastalik = res_has_top3[0]['label']
+        final_hastalik_prob = res_has_top3[0]['score']
+        
+        # Bu en yüksek olasılıklı hastalığa ait en iyi polikliniği bulalım
+        ilgili_klinikler_first = hastalık_bolum_map.get(final_hastalik, []) if hastalık_bolum_map else []
+        final_klinik = None
+        max_p_score_first = -1.0
+        for pk in ilgili_klinikler_first:
+            p_score = prob_dict.get(pk, 0.0)
+            if p_score > max_p_score_first:
+                max_p_score_first = p_score
+                final_klinik = pk
                 
         if not final_klinik:
             final_klinik = "İç Hastalıkları (Dahiliye)"
@@ -294,20 +293,25 @@ def predict():
         print(f"NİHAİ KARAR -> Hastalık: {final_hastalik}, Klinik: {final_klinik}")
         print("----------------------------------------------\n")
         
-        # 1. Sadece top-5 hastalıkla ilişkili polikliniklerin çapraz skorlarını hesaplayıp ekleyelim
-        clinic_scores = {}
-        for has_item in res_has_top3:
+        # 1. En yüksek skorlu 5 hastalık arasından sıralı olarak poliklinikleri seçelim (tekrar etmeden)
+        top_3_clinics = [final_klinik]
+        
+        for has_item in res_has_top3[1:]:
             hastalik_adi = has_item['label']
-            h_score = has_item['score']
             ilgili_klinikler = hastalık_bolum_map.get(hastalik_adi, []) if hastalık_bolum_map else []
+            
+            best_pk_for_disease = None
+            max_p_score = -1.0
             for pk in ilgili_klinikler:
                 p_score = prob_dict.get(pk, 0.0)
-                cross_score = h_score * p_score
-                if cross_score > clinic_scores.get(pk, 0.0):
-                    clinic_scores[pk] = cross_score
-                    
-        sorted_clinics = sorted(clinic_scores.items(), key=lambda x: x[1], reverse=True)
-        top_3_clinics = [item[0] for item in sorted_clinics[:3]]
+                if p_score > max_p_score:
+                    max_p_score = p_score
+                    best_pk_for_disease = pk
+            
+            if best_pk_for_disease and best_pk_for_disease not in top_3_clinics:
+                top_3_clinics.append(best_pk_for_disease)
+                if len(top_3_clinics) >= 3:
+                    break
         
         # 2. Eğer yeterli klinik yoksa (3'ten azsa), doğrudan poliklinik modelinin tahminlerinden ekle (ceza uygulayarak sıralamada geride tutalım)
         if len(top_3_clinics) < 3 and pipe_poliklinik is not None:
